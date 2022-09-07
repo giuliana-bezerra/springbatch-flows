@@ -6,6 +6,8 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.FlowBuilder;
+import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,27 @@ public class BatchConfig {
 
   @Bean
   public Job job(@Qualifier("importarClientes") Step importarClientes,
-      @Qualifier("marcarClientesComPendencias") Step marcarClientesComPendencias,
-      @Qualifier("notificarClientesComPendencias") Step notificarClientesComPendencias) {
+      @Qualifier("processarPendenciasDosClientesFlowStep") Step processarPendenciasDosClientesFlowStep) {
     return jobBuilderFactory
         .get("job")
         .start(importarClientes)
-        .next(marcarClientesComPendencias)
+        .next(processarPendenciasDosClientesFlowStep)
+        .build();
+  }
+
+  @Bean
+  public Step processarPendenciasDosClientesFlowStep(
+      Flow processarPendenciasDosClientesFlow) {
+    return stepBuilderFactory.get("processarPendenciasDosClientesFlowStep").flow(processarPendenciasDosClientesFlow)
+        .build();
+  }
+
+  @Bean
+  public Flow processarPendenciasDosClientesFlow(
+      @Qualifier("marcarClientesComPendencias") Step marcarClientesComPendencias,
+      @Qualifier("notificarClientesComPendencias") Step notificarClientesComPendencias) {
+    return new FlowBuilder<Flow>("processarPendenciasDosClientes")
+        .start(marcarClientesComPendencias)
         .next(notificarClientesComPendencias)
         .build();
   }
