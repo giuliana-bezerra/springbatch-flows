@@ -1,13 +1,13 @@
-package br.com.giulianabezerra.sbconditionalflow;
+package br.com.giulianabezerra.sbflows;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SbConditionalFlowApplication {
+public class SbFlowsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SbConditionalFlowApplication.class, args);
+		SpringApplication.run(SbFlowsApplication.class, args);
 	}
 
 }

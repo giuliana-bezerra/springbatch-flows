@@ -1,4 +1,4 @@
-package br.com.giulianabezerra.sbconditionalflow;
+package br.com.giulianabezerra.sbflows;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;

@@ -11,4 +11,5 @@ Projeto para demonstrar o uso de flows ou fluxos no Spring Batch.
 
 ## Referências
 
+- [Vídeo do Youtube](https://youtu.be/q2mKKTQnPxA)
 - [Curso de Spring Batch](https://www.udemy.com/course/curso-para-desenvolvimento-de-jobs-com-spring-batch/?referralCode=8743E206FA9240686B20)
